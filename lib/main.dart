@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.green,
+        errorColor: Colors.red[400],
         fontFamily: 'Nunito',
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(

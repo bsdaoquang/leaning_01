@@ -45,6 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
+  // Xóa 1 phần tử khỏi danh sách
+  void _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((element) => element.id == id);
+    });
+  }
+
   List<Transaction> get _recentTransactions {
     return _transactions.where((element) {
       return element.date
@@ -71,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             Chart(_recentTransactions),
-            TransationsList(_transactions)
+            Expanded(child: TransationsList(_transactions, _removeTransaction))
           ],
         ));
   }
