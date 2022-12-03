@@ -32,42 +32,35 @@ class TransationsList extends StatelessWidget {
                 ],
               )
             : ListView.builder(
-                itemBuilder: ((item, index) => Card(
-                        child: Row(
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2,
-                                    style: BorderStyle.solid)),
-                            child: Text(
-                              '\$${transactions[index].price.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Nunito',
-                                  fontSize: 20),
-                            )),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
+                itemBuilder: ((item, index) => Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
+                      child: Card(
+                          elevation: 6,
+                          child: ListTile(
+                            title: Text(
                               transactions[index].title,
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
                             ),
-                            Text(
-                              DateFormat.yMMMM()
-                                  .format(transactions[index].date),
-                              style: const TextStyle(color: Colors.grey),
-                            )
-                          ],
-                        )
-                      ],
-                    ))),
+                            subtitle: Text(DateFormat.yMMMd()
+                                .format(transactions[index].date)),
+                            leading: CircleAvatar(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '\$${transactions[index].price.toStringAsFixed(0)}',
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )),
+                            ),
+                          )),
+                    )),
                 itemCount: transactions.length,
               ));
   }

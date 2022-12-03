@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/chart.dart';
 import '../widgets/add_transaction.dart';
 import '../models/transaction.dart';
 import '../widgets/transactions_list.dart';
@@ -20,12 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   // Hàm thêm giao dịch
-  void _addNewTransaction(String title, double price) {
+  void _addNewTransaction(String title, double price, DateTime choiceDate) {
     final newTransation = Transaction(
         id: DateTime.now().toString(),
         title: title,
         price: price,
-        date: DateTime.now());
+        date: choiceDate);
 
     setState(() {
       _transactions.add(newTransation);
@@ -44,6 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((element) {
+      return element.date
+          .isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
+
   // String titleInput = '';
   @override
   Widget build(BuildContext context) {
@@ -60,6 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
             onPressed: () => _startAddNewTransaction(context)),
-        body: TransationsList(_transactions));
+        body: Column(
+          children: [
+            Chart(_recentTransactions),
+            TransationsList(_transactions)
+          ],
+        ));
   }
 }

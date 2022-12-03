@@ -14,14 +14,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
         fontFamily: 'Nunito',
-        textTheme: ThemeData.light().textTheme.copyWith(
-              titleSmall:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              titleMedium:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              titleLarge:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
               fontFamily: 'Nunito', fontSize: 22, fontWeight: FontWeight.bold),
