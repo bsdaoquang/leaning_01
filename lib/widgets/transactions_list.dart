@@ -10,48 +10,65 @@ class TransationsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
-      child: SingleChildScrollView(
-        child: Column(
-          children: transactions
-              .map((transaction) => Card(
-                      child: Row(
+        height: 450,
+        child: transactions.isEmpty
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.purple,
-                                  width: 2,
-                                  style: BorderStyle.solid)),
-                          child: Text(
-                            '\$${transaction.price}',
-                            style: const TextStyle(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          )),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transaction.title,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text(
-                            DateFormat.yMMMM().format(transaction.date),
-                            style: const TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      )
+                      Text(
+                        'No data transactions yet!',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ],
-                  )))
-              .toList(),
-        ),
-      ),
-    );
+                  ),
+                  Image.asset(
+                    'assets/images/no_data.png',
+                    width: 150,
+                    fit: BoxFit.cover,
+                  )
+                ],
+              )
+            : ListView.builder(
+                itemBuilder: ((item, index) => Card(
+                        child: Row(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                    style: BorderStyle.solid)),
+                            child: Text(
+                              '\$${transactions[index].price.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Nunito',
+                                  fontSize: 20),
+                            )),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              transactions[index].title,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              DateFormat.yMMMM()
+                                  .format(transactions[index].date),
+                              style: const TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        )
+                      ],
+                    ))),
+                itemCount: transactions.length,
+              ));
   }
 }

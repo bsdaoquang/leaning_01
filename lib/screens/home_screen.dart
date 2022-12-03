@@ -1,18 +1,65 @@
 import 'package:flutter/material.dart';
-import '../widgets/user_transaction.dart';
+import '../widgets/add_transaction.dart';
+import '../models/transaction.dart';
+import '../widgets/transactions_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  // String titleInput = '';
-  // String priceInput = '';
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Transaction> _transactions = [
+    // Transaction(id: '1', title: 'New shose', price: 6.99, date: DateTime.now()),
+    // Transaction(
+    //     id: '2', title: 'Transaction 2', price: 109.00, date: DateTime.now()),
+    // Transaction(
+    //     id: '3', title: 'Transaction 3', price: 19.99, date: DateTime.now())
+  ];
+
+  // Hàm thêm giao dịch
+  void _addNewTransaction(String title, double price) {
+    final newTransation = Transaction(
+        id: DateTime.now().toString(),
+        title: title,
+        price: price,
+        date: DateTime.now());
+
+    setState(() {
+      _transactions.add(newTransation);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+            child: AddTransaction(_addNewTransaction),
+          );
+        });
+  }
+
+  // String titleInput = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('My App'),
+          actions: [
+            IconButton(
+                onPressed: () => _startAddNewTransaction(context),
+                icon: const Icon(Icons.add)),
+          ],
         ),
-        body: const UserTransaction());
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context)),
+        body: TransationsList(_transactions));
   }
 }

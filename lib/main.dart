@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leaning_01/screens/home_screen.dart';
+import '/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +10,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+        fontFamily: 'Nunito',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleSmall:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              titleMedium:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              titleLarge:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+              fontFamily: 'Nunito', fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter App',
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
